@@ -19,6 +19,7 @@
 - Go 1.21 或更高版本
 - 阿里云 IOT 平台账号
 - 获取阿里云 IOT 平台的 `tsl.json` 配置文件
+- 克隆本项目到本地：`git clone https://github.com/fireboomio/case-aliyun-iot.git`
 - 将您的 `tsl.json` 文件放置在 `custom-go/iot/{iot类型}` 目录下
 - 复制.env.example` 为 `.env`，并填写正确的配置信息
 
