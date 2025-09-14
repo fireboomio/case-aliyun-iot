@@ -1,0 +1,18 @@
+{
+  "enabled": false,
+  "title": "",
+  "remark": "",
+  "createTime": "2025-09-14T08:18:23.190026+08:00",
+  "updateTime": "",
+  "deleteTime": "",
+  "path": "function/assistant/device/bindBluetooth",
+  "engine": 1,
+  "hooksConfiguration": null,
+  "rateLimit": null,
+  "semaphore": null,
+  "configCustomized": false,
+  "cacheConfig": null,
+  "liveQueryConfig": null,
+  "authenticationConfig": null,
+  "graphqlTransformEnabled": false
+}

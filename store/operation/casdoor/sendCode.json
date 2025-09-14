@@ -1,0 +1,25 @@
+{
+  "enabled": true,
+  "title": "",
+  "remark": "发送验证码",
+  "createTime": "2024-03-26T10:31:24.066047+08:00",
+  "updateTime": "2024-08-12T10:34:38.391795+08:00",
+  "deleteTime": "",
+  "path": "casdoor/sendCode",
+  "engine": 0,
+  "hooksConfiguration": null,
+  "rateLimit": null,
+  "semaphore": null,
+  "configCustomized": true,
+  "cacheConfig": {
+    "enabled": false,
+    "maxAge": 120,
+    "public": false,
+    "staleWhileRevalidate": 30
+  },
+  "liveQueryConfig": {
+    "enabled": false,
+    "pollingIntervalSeconds": 10
+  },
+  "authenticationConfig": null
+}

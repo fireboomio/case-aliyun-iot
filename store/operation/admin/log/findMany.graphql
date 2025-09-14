@@ -1,0 +1,32 @@
+query MyQuery(
+  $skip: Int = 0, $take: Int = 10, $createdAtGte: DateTime, $createdAtLt: DateTime, $costGte: Float, $costLt: Float
+  $ip: String, $method: String, $path: String, $phone: String, $status: String
+  $orderBy: [admin_adminLogOrderByWithRelationInput] = [{createdAt: desc}]) {
+  data: admin_findManyadminLog(
+    skip: $skip
+    take: $take
+    where: {cost: {gte: $costGte, lt: $costLt},status: {equals: $status},createdAt: {gte: $createdAtGte, lt: $createdAtLt},ip: {contains: $ip}, method: {contains: $method}, path: {contains: $path}, user: {is: {phone: {contains: $phone}}}}
+    orderBy: $orderBy
+  ) {
+    id
+    createdAt
+    ip
+    ua
+    method
+    path
+    status
+    body
+    query
+    error
+    userId
+    cost
+    requestId
+  }
+  total: admin_aggregateadminLog(
+    where: {cost: {gte: $costGte, lt: $costLt},status: {equals: $status},createdAt: {gte: $createdAtGte, lt: $createdAtLt},ip: {contains: $ip}, method: {contains: $method}, path: {contains: $path}, user: {is: {phone: {contains: $phone}}}}
+  ) @transform(get: "_count.id") {
+    _count {
+      id
+    }
+  }
+}

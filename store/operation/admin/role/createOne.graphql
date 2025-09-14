@@ -1,0 +1,7 @@
+mutation MyQuery($code: String!, $name: String!, $description: String) {
+  data: admin_createOneadminRole(
+    data: {code: $code, name: $name, description: $description}
+  ) {
+    id
+  }
+}

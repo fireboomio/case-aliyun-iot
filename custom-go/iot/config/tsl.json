@@ -1,0 +1,329 @@
+{
+  "schema": "https://iotx-tsl.oss-ap-southeast-1.aliyuncs.com/schema.json",
+  "profile": {
+    "version": "1.0",
+    "productKey": ""
+  },
+  "properties": [
+    {
+      "identifier": "thresholdOfBatteryVoltage",
+      "name": "电压触发阀值",
+      "accessMode": "rw",
+      "required": false,
+      "dataType": {
+        "type": "int",
+        "specs": {
+          "min": "-2147483648",
+          "max": "2147483647",
+          "step": "1"
+        }
+      }
+    },
+    {
+      "identifier": "PowerType",
+      "name": "电源类型",
+      "accessMode": "rw",
+      "required": false,
+      "dataType": {
+        "type": "enum",
+        "specs": {
+          "1": "电池",
+          "2": "电源插电"
+        }
+      }
+    },
+    {
+      "identifier": "sleepMode",
+      "name": "休眠模式",
+      "accessMode": "rw",
+      "required": false,
+      "dataType": {
+        "type": "enum",
+        "specs": {
+          "1": "浅层休眠",
+          "2": "深度休眠"
+        }
+      }
+    },
+    {
+      "identifier": "sleepTimePeriod",
+      "name": "休眠时间段",
+      "accessMode": "rw",
+      "desc": "[\"00:00-07:00\",\"09:00-19:00\",\"21:00-24:00\"]",
+      "required": false,
+      "dataType": {
+        "type": "array",
+        "specs": {
+          "size": "3",
+          "item": {
+            "type": "text"
+          }
+        }
+      }
+    },
+    {
+      "identifier": "bluetooth",
+      "name": "蓝牙相关",
+      "accessMode": "rw",
+      "desc": "后续蓝牙的开关，也可以加在这里",
+      "required": false,
+      "dataType": {
+        "type": "struct",
+        "specs": [
+          {
+            "identifier": "mac",
+            "name": "蓝牙mac地址",
+            "dataType": {
+              "type": "text",
+              "specs": {
+                "length": "10240"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "events": [
+    {
+      "identifier": "post",
+      "name": "post",
+      "type": "info",
+      "required": true,
+      "desc": "属性上报",
+      "method": "thing.event.property.post",
+      "outputData": [
+        {
+          "identifier": "thresholdOfBatteryVoltage",
+          "name": "电压触发阀值",
+          "dataType": {
+            "type": "int",
+            "specs": {
+              "min": "-2147483648",
+              "max": "2147483647",
+              "step": "1"
+            }
+          }
+        },
+        {
+          "identifier": "PowerType",
+          "name": "电源类型",
+          "dataType": {
+            "type": "enum",
+            "specs": {
+              "1": "电池",
+              "2": "电源插电"
+            }
+          }
+        },
+        {
+          "identifier": "sleepMode",
+          "name": "休眠模式",
+          "dataType": {
+            "type": "enum",
+            "specs": {
+              "1": "浅层休眠",
+              "2": "深度休眠"
+            }
+          }
+        },
+        {
+          "identifier": "sleepTimePeriod",
+          "name": "休眠时间段",
+          "dataType": {
+            "type": "array",
+            "specs": {
+              "size": "3",
+              "item": {
+                "type": "text"
+              }
+            }
+          }
+        },
+        {
+          "identifier": "bluetooth",
+          "name": "蓝牙相关",
+          "dataType": {
+            "type": "struct",
+            "specs": [
+              {
+                "identifier": "mac",
+                "name": "蓝牙mac地址",
+                "dataType": {
+                  "type": "text",
+                  "specs": {
+                    "length": "10240"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "services": [
+    {
+      "identifier": "set",
+      "name": "set",
+      "required": true,
+      "callType": "async",
+      "desc": "属性设置",
+      "method": "thing.service.property.set",
+      "inputData": [
+        {
+          "identifier": "thresholdOfBatteryVoltage",
+          "name": "电压触发阀值",
+          "dataType": {
+            "type": "int",
+            "specs": {
+              "min": "-2147483648",
+              "max": "2147483647",
+              "step": "1"
+            }
+          }
+        },
+        {
+          "identifier": "PowerType",
+          "name": "电源类型",
+          "dataType": {
+            "type": "enum",
+            "specs": {
+              "1": "电池",
+              "2": "电源插电"
+            }
+          }
+        },
+        {
+          "identifier": "sleepMode",
+          "name": "休眠模式",
+          "dataType": {
+            "type": "enum",
+            "specs": {
+              "1": "浅层休眠",
+              "2": "深度休眠"
+            }
+          }
+        },
+        {
+          "identifier": "sleepTimePeriod",
+          "name": "休眠时间段",
+          "dataType": {
+            "type": "array",
+            "specs": {
+              "size": "3",
+              "item": {
+                "type": "text"
+              }
+            }
+          }
+        },
+        {
+          "identifier": "bluetooth",
+          "name": "蓝牙相关",
+          "dataType": {
+            "type": "struct",
+            "specs": [
+              {
+                "identifier": "mac",
+                "name": "蓝牙mac地址",
+                "dataType": {
+                  "type": "text",
+                  "specs": {
+                    "length": "10240"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "outputData": []
+    },
+    {
+      "identifier": "get",
+      "name": "get",
+      "required": true,
+      "callType": "async",
+      "desc": "属性获取",
+      "method": "thing.service.property.get",
+      "inputData": [
+        "thresholdOfBatteryVoltage",
+        "PowerType",
+        "sleepMode",
+        "sleepTimePeriod",
+        "bluetooth"
+      ],
+      "outputData": [
+        {
+          "identifier": "thresholdOfBatteryVoltage",
+          "name": "电压触发阀值",
+          "dataType": {
+            "type": "int",
+            "specs": {
+              "min": "-2147483648",
+              "max": "2147483647",
+              "step": "1"
+            }
+          }
+        },
+        {
+          "identifier": "PowerType",
+          "name": "电源类型",
+          "dataType": {
+            "type": "enum",
+            "specs": {
+              "1": "电池",
+              "2": "电源插电"
+            }
+          }
+        },
+        {
+          "identifier": "sleepMode",
+          "name": "休眠模式",
+          "dataType": {
+            "type": "enum",
+            "specs": {
+              "1": "浅层休眠",
+              "2": "深度休眠"
+            }
+          }
+        },
+        {
+          "identifier": "sleepTimePeriod",
+          "name": "休眠时间段",
+          "dataType": {
+            "type": "array",
+            "specs": {
+              "size": "3",
+              "item": {
+                "type": "text"
+              }
+            }
+          }
+        },
+        {
+          "identifier": "bluetooth",
+          "name": "蓝牙相关",
+          "dataType": {
+            "type": "struct",
+            "specs": [
+              {
+                "identifier": "mac",
+                "name": "蓝牙mac地址",
+                "dataType": {
+                  "type": "text",
+                  "specs": {
+                    "length": "10240"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "functionBlockId": "config",
+  "functionBlockName": "配置参数"
+}

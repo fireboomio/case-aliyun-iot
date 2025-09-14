@@ -1,0 +1,25 @@
+{
+  "enabled": true,
+  "title": "",
+  "remark": "# 根据dictCode/value/title查询字典第一个子项",
+  "createTime": "2024-07-17T10:14:44.60818+08:00",
+  "updateTime": "2024-07-17T10:32:49.132764+08:00",
+  "deleteTime": "",
+  "path": "dict/item/findFirst",
+  "engine": 0,
+  "hooksConfiguration": null,
+  "rateLimit": null,
+  "semaphore": null,
+  "configCustomized": false,
+  "cacheConfig": {
+    "enabled": false,
+    "maxAge": 120,
+    "public": false,
+    "staleWhileRevalidate": 30
+  },
+  "liveQueryConfig": {
+    "enabled": false,
+    "pollingIntervalSeconds": 10
+  },
+  "authenticationConfig": null
+}

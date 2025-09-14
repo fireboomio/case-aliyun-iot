@@ -1,0 +1,25 @@
+{
+  "enabled": true,
+  "title": "",
+  "remark": "# 日志批量删除接口",
+  "createTime": "2023-12-21T14:00:27.867759+08:00",
+  "updateTime": "2024-05-14T17:17:42.652606+08:00",
+  "deleteTime": "",
+  "path": "admin/log/deleteMany",
+  "engine": 0,
+  "hooksConfiguration": null,
+  "rateLimit": null,
+  "semaphore": null,
+  "configCustomized": false,
+  "cacheConfig": {
+    "enabled": false,
+    "maxAge": 120,
+    "public": false,
+    "staleWhileRevalidate": 30
+  },
+  "liveQueryConfig": {
+    "enabled": false,
+    "pollingIntervalSeconds": 10
+  },
+  "authenticationConfig": null
+}

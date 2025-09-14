@@ -1,0 +1,19 @@
+query MyQuery($skip: Int = 0, $take: Int = 10, $path: String, $roleId: String) {
+  data: admin_findManyadminRole2Menu(
+    skip: $skip
+    take: $take
+    where: {roleId: {equals: $roleId}, adminMenu: {is: {apis: {contains: $path}, type: {equals: "F"}}}}
+    orderBy: {createdAt: desc}
+  ) @transform(get: "adminRole.code") {
+    adminRole {
+      code
+    }
+  }
+  total: admin_aggregateadminRole2Menu(
+    where: {roleId: {equals: $roleId}, adminMenu: {is: {apis: {contains: $path}, type: {equals: "F"}}}}
+  ) @transform(get: "_count.id") {
+    _count {
+      id
+    }
+  }
+}

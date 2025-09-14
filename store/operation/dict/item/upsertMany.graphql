@@ -1,0 +1,9 @@
+mutation MyQuery($dictId: String!, $createMany: admin_dictItemCreateManyDictInputEnvelope, $deleteIds: [String], $updateMany: [admin_dictItemUpdateManyWithWhereWithoutDictInput]) {
+  data: admin_updateOnedict(
+    data: {dictItem: {deleteMany: {id: {in: $deleteIds}}, updateMany: $updateMany, createMany: $createMany}}
+    where: {id: $dictId}
+  ) {
+    id
+    code
+  }
+}

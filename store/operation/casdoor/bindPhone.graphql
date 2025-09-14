@@ -1,0 +1,26 @@
+mutation MyQuery($code: String!, $phone: String!, $isSwitchAction: Boolean, 
+  $password: String = "123456" @injectEnvironmentVariable(name: "DEFAULT_PASSWORD")
+  $authorization: String! @fromHeader(name: "Authorization"), $userId: String @internal) {
+  data: casdoor_updateUser_post(
+    Authorization: $authorization
+    updateUser_post_input_object: {phone: $phone, name: $phone, code: $code, password: $password}
+  ) {
+    code
+    msg
+    data {
+      accessToken
+      refreshToken
+      expireIn
+    }
+    userId: _join @transform(get: "casdoor_userInfo_get.userId") @include(if: $isSwitchAction) {
+      casdoor_userInfo_get(Authorization: $authorization) {
+        userId @export(as: "userId")
+      }
+    }
+    updatedId: _join_mutation @transform(get: "admin_updateOneuser.id") @include(if: $isSwitchAction, ifRule: "arguments.userId") {
+      admin_updateOneuser(data: {phone: {set: $phone}}, where: {id: $userId}) {
+        id
+      }
+    }
+  }
+}

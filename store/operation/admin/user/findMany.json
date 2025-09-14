@@ -1,0 +1,25 @@
+{
+  "enabled": true,
+  "title": "",
+  "remark": "# 用户分页查询接口",
+  "createTime": "2024-06-25T17:38:02.647455+08:00",
+  "updateTime": "2024-06-27T10:12:35.859877+08:00",
+  "deleteTime": "",
+  "path": "admin/user/findMany",
+  "engine": 0,
+  "hooksConfiguration": null,
+  "rateLimit": null,
+  "semaphore": null,
+  "configCustomized": false,
+  "cacheConfig": {
+    "enabled": false,
+    "maxAge": 120,
+    "public": false,
+    "staleWhileRevalidate": 30
+  },
+  "liveQueryConfig": {
+    "enabled": false,
+    "pollingIntervalSeconds": 10
+  },
+  "authenticationConfig": null
+}

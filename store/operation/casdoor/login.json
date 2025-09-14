@@ -1,0 +1,37 @@
+{
+  "enabled": true,
+  "title": "",
+  "remark": "OIDC登录",
+  "createTime": "2024-02-28T15:58:50.548408+08:00",
+  "updateTime": "2024-08-12T10:34:12.250492+08:00",
+  "deleteTime": "",
+  "path": "casdoor/login",
+  "engine": 0,
+  "hooksConfiguration": {
+    "preResolve": false,
+    "postResolve": false,
+    "mutatingPreResolve": false,
+    "mutatingPostResolve": true,
+    "customResolve": false,
+    "mockResolve": null,
+    "httpTransportOnRequest": false,
+    "httpTransportOnResponse": false,
+    "onConnectionInit": false,
+    "httpTransportBeforeRequest": false,
+    "httpTransportAfterResponse": false
+  },
+  "rateLimit": null,
+  "semaphore": null,
+  "configCustomized": true,
+  "cacheConfig": {
+    "enabled": false,
+    "maxAge": 120,
+    "public": false,
+    "staleWhileRevalidate": 30
+  },
+  "liveQueryConfig": {
+    "enabled": false,
+    "pollingIntervalSeconds": 10
+  },
+  "authenticationConfig": null
+}

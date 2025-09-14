@@ -1,0 +1,25 @@
+{
+  "enabled": true,
+  "title": "",
+  "remark": "# 更新字典项",
+  "createTime": "2024-07-17T10:13:55.839115+08:00",
+  "updateTime": "2024-07-17T10:19:19.831405+08:00",
+  "deleteTime": "",
+  "path": "dict/updateOne",
+  "engine": 0,
+  "hooksConfiguration": null,
+  "rateLimit": null,
+  "semaphore": null,
+  "configCustomized": false,
+  "cacheConfig": {
+    "enabled": false,
+    "maxAge": 120,
+    "public": false,
+    "staleWhileRevalidate": 30
+  },
+  "liveQueryConfig": {
+    "enabled": false,
+    "pollingIntervalSeconds": 10
+  },
+  "authenticationConfig": null
+}

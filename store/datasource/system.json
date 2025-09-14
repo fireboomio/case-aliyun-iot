@@ -1,0 +1,29 @@
+{
+  "name": "system",
+  "enabled": true,
+  "createTime": "2024-05-20T18:16:43.710093+08:00",
+  "updateTime": "",
+  "deleteTime": "",
+  "cacheEnabled": false,
+  "kind": 1,
+  "customRest": {
+    "oasFilepath": "system.json",
+    "baseUrl": {
+      "kind": 0,
+      "staticVariableContent": "http://localhost:9123/api"
+    },
+    "headers": {
+      "X-FB-Authentication": {
+        "values": [
+          {
+            "kind": 1,
+            "environmentVariableName": "X_FB_Authentication"
+          }
+        ]
+      }
+    },
+    "responseExtractor": null
+  },
+  "customGraphql": null,
+  "customDatabase": null
+}

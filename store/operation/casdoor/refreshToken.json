@@ -1,0 +1,38 @@
+{
+  "enabled": true,
+  "title": "",
+  "remark": "token过期刷新使用",
+  "createTime": "2024-04-23T09:45:55.555913+08:00",
+  "updateTime": "2025-02-27T14:35:12.220286+08:00",
+  "deleteTime": "",
+  "path": "casdoor/refreshToken",
+  "engine": 0,
+  "hooksConfiguration": {
+    "preResolve": false,
+    "postResolve": true,
+    "mutatingPreResolve": false,
+    "mutatingPostResolve": false,
+    "customResolve": false,
+    "mockResolve": null,
+    "httpTransportOnRequest": false,
+    "httpTransportOnResponse": false,
+    "onConnectionInit": false,
+    "httpTransportBeforeRequest": false,
+    "httpTransportAfterResponse": false
+  },
+  "rateLimit": null,
+  "semaphore": null,
+  "configCustomized": true,
+  "cacheConfig": {
+    "enabled": false,
+    "maxAge": 120,
+    "public": false,
+    "staleWhileRevalidate": 30
+  },
+  "liveQueryConfig": {
+    "enabled": false,
+    "pollingIntervalSeconds": 10
+  },
+  "authenticationConfig": null,
+  "graphqlTransformEnabled": false
+}

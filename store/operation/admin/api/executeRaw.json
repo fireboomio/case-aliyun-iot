@@ -1,0 +1,37 @@
+{
+  "enabled": true,
+  "title": "",
+  "remark": "# 直接执行exceuteRaw",
+  "createTime": "2023-12-25T16:09:11.710303+08:00",
+  "updateTime": "2024-05-14T17:26:45.210695+08:00",
+  "deleteTime": "",
+  "path": "admin/api/executeRaw",
+  "engine": 0,
+  "hooksConfiguration": {
+    "preResolve": true,
+    "postResolve": false,
+    "mutatingPreResolve": false,
+    "mutatingPostResolve": false,
+    "customResolve": false,
+    "mockResolve": null,
+    "httpTransportOnRequest": false,
+    "httpTransportOnResponse": false,
+    "onConnectionInit": false,
+    "httpTransportBeforeRequest": false,
+    "httpTransportAfterResponse": false
+  },
+  "rateLimit": null,
+  "semaphore": null,
+  "configCustomized": false,
+  "cacheConfig": {
+    "enabled": false,
+    "maxAge": 120,
+    "public": false,
+    "staleWhileRevalidate": 30
+  },
+  "liveQueryConfig": {
+    "enabled": false,
+    "pollingIntervalSeconds": 10
+  },
+  "authenticationConfig": null
+}

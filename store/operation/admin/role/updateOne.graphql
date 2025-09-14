@@ -1,0 +1,18 @@
+mutation MyQuery($id: String!, $code: String, $name: String, $description: String
+  $unlinkMenuIds: [String], $linkMenuIds: [String] @hookVariable
+  $createManyMenuRole: admin_adminRole2MenuCreateManyAdminRoleInputEnvelope @internal
+  $updatedAt: DateTime! @injectCurrentDateTime(format: ISO8601)
+  ) {
+  data: admin_updateOneadminRole(
+    data: {
+      code: {set: $code}, updatedAt: {set: $updatedAt}, name: {set: $name}, description: {set: $description},
+      adminRole2Menu: {
+        deleteMany: {menuId: {in: $unlinkMenuIds}},
+        createMany: $createManyMenuRole
+      }
+    }
+    where: {id: $id}
+  ) {
+    id
+  }
+}

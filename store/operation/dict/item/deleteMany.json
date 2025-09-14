@@ -1,0 +1,17 @@
+{
+  "enabled": false,
+  "title": "",
+  "remark": "",
+  "createTime": "2024-07-17T10:14:54.711578+08:00",
+  "updateTime": "",
+  "deleteTime": "2024-07-17T10:19:25.504125+08:00",
+  "path": "dict/item/deleteMany",
+  "engine": 0,
+  "hooksConfiguration": null,
+  "rateLimit": null,
+  "semaphore": null,
+  "configCustomized": false,
+  "cacheConfig": null,
+  "liveQueryConfig": null,
+  "authenticationConfig": null
+}

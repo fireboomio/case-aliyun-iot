@@ -1,0 +1,20 @@
+query MyQuery($id:String!) {
+  data: admin_findUniqueuser(where: {id: $id}) {
+    avatar
+    birthday
+    createdAt
+    id
+    name
+    nickName
+    phone
+    sex
+    updatedAt
+    roles: adminRole2User @transform(get: "role") {
+      role {
+        id
+        code
+        name
+      }
+    }
+  }
+}

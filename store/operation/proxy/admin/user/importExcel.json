@@ -1,0 +1,18 @@
+{
+  "enabled": false,
+  "title": "",
+  "remark": "",
+  "createTime": "2025-09-14T08:18:23.193486+08:00",
+  "updateTime": "",
+  "deleteTime": "",
+  "path": "proxy/admin/user/importExcel",
+  "engine": 2,
+  "hooksConfiguration": null,
+  "rateLimit": null,
+  "semaphore": null,
+  "configCustomized": false,
+  "cacheConfig": null,
+  "liveQueryConfig": null,
+  "authenticationConfig": null,
+  "graphqlTransformEnabled": false
+}

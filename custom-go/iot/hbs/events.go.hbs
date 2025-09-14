@@ -1,0 +1,16 @@
+package {{package}}
+
+import "custom-go/iot/base"
+
+var (
+{{#each tsl.events}}
+    {{upperFirst identifier}}Event = base.NewEventTslHandler[{{upperFirst identifier}}EventOutput]("{{identifier}}", "{{name}}", "{{type}}", "{{method}}", "{{desc}}", {{required}})
+{{/each}}
+)
+
+{{#each tsl.events}}{{#each outputData}}{{#equal dataType.type 'enum'~}}
+func (e *{{upperFirst ../identifier}}_{{identifier}}) UnmarshalJSON(data []byte) (err error) {
+    *e = {{upperFirst ../identifier}}_{{identifier}}(base.CastToStringValue(data))
+    return
+}
+{{/equal}}{{/each~}}{{/each}}

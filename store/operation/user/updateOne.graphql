@@ -1,0 +1,8 @@
+mutation MyQuery($id: String! @fromClaim(name: USERID), $sex: admin_userSex, $nickName: String, $name: String, $birthday: DateTime, $avatar: String) {
+  data: admin_updateOneuser(
+    data: {sex: $sex, nickName: {set: $nickName}, name: {set: $name}, birthday: {set: $birthday}, avatar: {set: $avatar}}
+    where: {id: $id}
+  ) {
+    id
+  }
+}

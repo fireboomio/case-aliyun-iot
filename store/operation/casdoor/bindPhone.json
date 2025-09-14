@@ -1,0 +1,39 @@
+{
+  "enabled": true,
+  "title": "",
+  "remark": "oidc绑定手机号",
+  "createTime": "2024-02-29T20:22:32.347919+08:00",
+  "updateTime": "2024-08-12T10:34:04.517527+08:00",
+  "deleteTime": "",
+  "path": "casdoor/bindPhone",
+  "engine": 0,
+  "hooksConfiguration": {
+    "preResolve": false,
+    "postResolve": true,
+    "mutatingPreResolve": false,
+    "mutatingPostResolve": false,
+    "customResolve": false,
+    "mockResolve": null,
+    "httpTransportOnRequest": false,
+    "httpTransportOnResponse": false,
+    "onConnectionInit": false,
+    "httpTransportBeforeRequest": false,
+    "httpTransportAfterResponse": false
+  },
+  "rateLimit": null,
+  "semaphore": null,
+  "configCustomized": true,
+  "cacheConfig": {
+    "enabled": false,
+    "maxAge": 120,
+    "public": false,
+    "staleWhileRevalidate": 30
+  },
+  "liveQueryConfig": {
+    "enabled": false,
+    "pollingIntervalSeconds": 10
+  },
+  "authenticationConfig": {
+    "authRequired": false
+  }
+}

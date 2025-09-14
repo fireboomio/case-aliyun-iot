@@ -1,0 +1,24 @@
+{
+  "enabled": true,
+  "title": "",
+  "remark": "用户信息更新接口，更新性别、昵称、姓名、生日、头像等信息",
+  "createTime": "2024-03-26T15:35:52.263274+08:00",
+  "updateTime": "2024-03-26T15:37:56.518112+08:00",
+  "deleteTime": "",
+  "path": "user/updateOne",
+  "engine": 0,
+  "hooksConfiguration": null,
+  "rateLimit": null,
+  "configCustomized": false,
+  "cacheConfig": {
+    "enabled": false,
+    "maxAge": 120,
+    "public": false,
+    "staleWhileRevalidate": 30
+  },
+  "liveQueryConfig": {
+    "enabled": false,
+    "pollingIntervalSeconds": 10
+  },
+  "authenticationConfig": null
+}

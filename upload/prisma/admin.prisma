@@ -1,0 +1,215 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("ANT_DB_URL")
+}
+
+/// 接口请求日志
+
+model adminLog {
+  /// 主键
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  /// 创建时间
+  createdAt DateTime @default(now())
+  /// IP
+  ip        String   @db.VarChar(36)
+  /// UA
+  ua        String   @db.VarChar(512)
+  /// 用户id
+  userId    String?  @db.VarChar(36)
+  /// 请求ID
+  requestId String   @db.VarChar(64)
+  /// 请求类型
+  method    String   @db.VarChar(16)
+  /// 请求路径
+  path      String   @db.VarChar(512)
+  /// 请求状态
+  status    String?  @db.VarChar(36)
+  /// 消耗时间
+  cost      Float?
+  /// 请求体
+  body      String?
+  /// 请求参数
+  query     String?
+  /// 错误
+  error     String?
+
+  user user? @relation(fields: [userId], references: [id], onDelete: NoAction)
+
+  @@index([createdAt])
+  @@index([userId])
+  @@index([path])
+}
+
+/// 后台菜单
+
+model adminMenu {
+  /// 主键
+  id            String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  /// 创建时间
+  createdAt     DateTime @default(now())
+  /// 更新时间
+  updatedAt     DateTime @updatedAt
+  /// 标签
+  label         String   @db.VarChar(32)
+  /// 路径
+  path          String?  @db.VarChar(128)
+  /// 图标
+  icon          String?
+  /// 排序
+  sort          Int      @db.SmallInt
+  /// 等级
+  level         Int      @db.SmallInt
+  /// 父菜单id
+  parentId      String?  @db.Uuid
+  /// 权限
+  permission    String?  @db.VarChar(100)
+  /// 类型
+  type          String?  @db.Char(1)
+  /// 编码
+  code          String?  @db.VarChar(64)
+  /// schema
+  schema        String?
+  /// 是否展示
+  visibleInMenu Boolean  @default(true)
+  /// 绑定api列表
+  apis          String?
+
+  adminRole2Menu adminRole2Menu[]
+  children       adminMenu[]      @relation("adminMenu_parentId_fk")
+
+  parent adminMenu? @relation(fields: [parentId], references: [id], onDelete: NoAction, name: "adminMenu_parentId_fk")
+}
+
+/// 角色
+
+model adminRole {
+  /// 主键
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  /// 创建时间
+  createdAt   DateTime @default(now())
+  /// 更新时间
+  updatedAt   DateTime @updatedAt
+  /// 名称
+  name        String   @db.VarChar(36)
+  /// 编码
+  code        String   @unique @db.VarChar(36)
+  /// 描述
+  description String?  @db.VarChar(256)
+
+  adminRole2Menu adminRole2Menu[]
+  adminRole2User adminRole2User[]
+}
+
+/// 后台菜单关联角色
+
+model adminRole2Menu {
+  /// 主键
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  /// 创建时间
+  createdAt DateTime @default(now())
+  /// 角色ID
+  roleId    String   @db.Uuid
+  /// 菜单ID
+  menuId    String   @db.Uuid
+
+  adminRole adminRole? @relation(fields: [roleId], references: [id], onDelete: NoAction)
+  adminMenu adminMenu? @relation(fields: [menuId], references: [id], onDelete: NoAction)
+
+  @@unique([roleId, menuId])
+}
+
+/// 用户绑定角色
+model adminRole2User {
+  /// 主键
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  /// 创建时间
+  createdAt DateTime @default(now())
+  /// 更新时间
+  updatedAt DateTime @updatedAt
+  /// 角色ID
+  roleId    String   @db.Uuid
+  /// 用户ID
+  userId    String   @db.VarChar(36)
+
+  role adminRole? @relation(fields: [roleId], references: [id], onDelete: NoAction)
+  user user?      @relation(fields: [userId], references: [id], onDelete: NoAction)
+
+  @@unique([roleId, userId])
+}
+
+/// 用户表
+
+model user {
+  /// 主键
+  id        String    @id @db.VarChar(36)
+  /// 手机号
+  phone     String    @unique @db.VarChar(36)
+  /// 名称
+  name      String    @db.VarChar(64)
+  /// 头像
+  avatar    String    @db.VarChar(256)
+  /// 昵称
+  nickName  String    @db.VarChar(64)
+  /// 生日
+  birthday  DateTime?
+  /// 创建时间
+  createdAt DateTime  @default(now())
+  /// 更新时间
+  updatedAt DateTime  @updatedAt
+  /// 性别
+  sex       userSex?
+
+  adminLog       adminLog[]
+  adminRole2User adminRole2User[]
+
+  @@index([name])
+}
+
+/// 配置表
+
+model dict {
+  /// 主键
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  /// 创建时间
+  createdAt   DateTime @default(now())
+  /// 更新时间
+  updatedAt   DateTime @updatedAt
+  /// 状态
+  code        String   @unique @db.VarChar(50)
+  /// 结果
+  name        String   @db.VarChar(50)
+  /// 描述
+  description String?  @db.VarChar(256)
+
+  dictItem dictItem[]
+}
+
+/// 配置子项表
+
+model dictItem {
+  /// 主键
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  /// 创建时间
+  createdAt   DateTime @default(now())
+  /// 更新时间
+  updatedAt   DateTime @updatedAt
+  /// 键
+  key         String   @db.VarChar(50)
+  /// 值
+  value       String   @db.VarChar(256)
+  /// 是否开启
+  enabled     Boolean  @default(true)
+  /// 描述
+  description String?  @db.VarChar(256)
+  /// 配置ID
+  dictId      String   @db.Uuid
+
+  dict dict? @relation(fields: [dictId], references: [id], onDelete: NoAction)
+
+  @@unique([dictId, key])
+}
+
+enum userSex {
+  male
+  female
+}

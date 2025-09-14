@@ -1,0 +1,28 @@
+query MyQuery(
+  $skip: Int = 0, $take: Int = 10, $orderBy: [admin_dictOrderByWithRelationInput] = [{createdAt: asc}]
+  $name: String, $code: String
+) {
+  data: admin_findManydict(
+		take: $take
+    skip: $skip
+    orderBy: $orderBy
+    where: {name: {contains: $name}, code: {contains: $code}}
+  ) {
+    code
+    createdAt
+    description
+    id
+    name
+    updatedAt
+    itemCount: _count @transform(get: "dictItem") {
+      dictItem
+    }
+  }
+  total: admin_aggregatedict(
+  	where: {name: {contains: $name}, code: {contains: $code}}
+  ) @transform(get: "_count.id") {
+    _count {
+      id
+    }
+  }
+}

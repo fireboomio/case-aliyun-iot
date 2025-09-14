@@ -1,0 +1,5 @@
+mutation MyQuery($name: String!, $code: String!, $description: String) {
+  data: admin_createOnedict(data: {code: $code, name: $name, description: $description}) {
+    id
+  }
+}

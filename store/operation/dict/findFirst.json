@@ -1,0 +1,26 @@
+{
+  "enabled": true,
+  "title": "",
+  "remark": "# 查询字典code是否存在",
+  "createTime": "2024-07-31T09:44:08.705627+08:00",
+  "updateTime": "2024-11-07T18:23:32.2012+08:00",
+  "deleteTime": "",
+  "path": "dict/findFirst",
+  "engine": 0,
+  "hooksConfiguration": null,
+  "rateLimit": null,
+  "semaphore": null,
+  "configCustomized": false,
+  "cacheConfig": {
+    "enabled": false,
+    "maxAge": 120,
+    "public": false,
+    "staleWhileRevalidate": 30
+  },
+  "liveQueryConfig": {
+    "enabled": false,
+    "pollingIntervalSeconds": 10
+  },
+  "authenticationConfig": null,
+  "graphqlTransformEnabled": false
+}

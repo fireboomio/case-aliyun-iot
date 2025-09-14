@@ -1,0 +1,39 @@
+mutation MyQuery(
+  $phone: String!, $avatar: String = "", $name: String = "", $nickName: String = "", 
+  $password: String = "123456" @injectEnvironmentVariable(name: "DEFAULT_PASSWORD")
+  $oidcUserId: String! @internal, $oidcExisted: Boolean @internal, $dbExisted: Boolean @internal
+) @internalOperation @disallowParallel {
+  data: casdoor_isUserExist_post(isUserExist_post_input_object: {phone: $phone}) {
+    oidcUserId: data @export(as: "oidcUserId") 
+    oidcExisted: success @export(as: "oidcExisted")
+    dbExistedUserId: _join @transform(get: "admin_findUniqueuser.id") {
+      admin_findUniqueuser(where: {phone: $phone}) {
+        id @export(as: "dbExisted")
+      }
+    }
+    oidcCreatedUserId: _join_mutation @transform(get: "casdoor_addUser_post.data") @skip(if: $oidcExisted) {
+      casdoor_addUser_post(
+  		  addUser_post_input_object: {avatar: $avatar, name: $phone, phone: $phone, password: $password}
+  		) {
+        data @export(as: "oidcUserId")
+        msg
+        code
+      }
+    }
+    dbCreatedUserId: _join_mutation @transform(get: "admin_createOneuser.id") @skip(if: $dbExisted) {
+      admin_createOneuser(
+        data: {id: $oidcUserId, avatar: $avatar, name: $name, nickName: $nickName, phone: $phone}
+      ) {
+        id
+      }
+    }
+    dbUpdatedUserId: _join_mutation @transform(get: "admin_updateOneuser.id") @include(if: $dbExisted, ifRule: "!isAllEmpty(arguments.name,arguments.nickName,arguments.phone)") {
+      admin_updateOneuser(
+        data: {name: {set: $name}, nickName: {set: $nickName}, phone: {set: $phone}}
+        where: {id: $oidcUserId}
+      ) @skipVariable(variables: ["name"], ifRule: "isEmpty(arguments.name)") @skipVariable(variables: ["nickName"], ifRule: "isEmpty(arguments.nickName)") @skipVariable(variables: ["phone"], ifRule: "isEmpty(arguments.phone)") {
+        id
+      }
+    }
+  }
+}

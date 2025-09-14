@@ -1,0 +1,7 @@
+mutation MyQuery($icon: String, $label: String!, $level: Int! = 1, $code: String, $parentId: String, $path: String!, $permission: String, $sort: Int = 1, $type: String, $apis: String, $visibleInMenu: Boolean = true) {
+  data: admin_createOneadminMenu(
+    data: {label: $label, sort: $sort, level: $level, icon: $icon, code: $code, parent: {connect: {id: $parentId}}, path: $path, permission: $permission, type: $type, visibleInMenu: $visibleInMenu, apis: $apis}
+  ) {
+    id
+  }
+}

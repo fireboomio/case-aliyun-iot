@@ -1,0 +1,24 @@
+{
+  "name": "casdoor",
+  "enabled": true,
+  "createTime": "2023-09-18T10:45:49.51069+08:00",
+  "updateTime": "2023-09-18T10:45:52.006846+08:00",
+  "deleteTime": "",
+  "cacheEnabled": false,
+  "kind": 1,
+  "customRest": {
+    "oasFilepath": "casdoor.json",
+    "baseUrl": {
+      "kind": 1,
+      "environmentVariableName": "OIDC_API_URL"
+    },
+    "headers": {
+    },
+    "responseExtractor": {
+      "statusCodeJsonpath": "code",
+      "errorMessageJsonpath": "msg"
+    }
+  },
+  "customGraphql": null,
+  "customDatabase": null
+}

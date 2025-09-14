@@ -1,0 +1,9 @@
+mutation MyQuery($phones: [String]!, $provider: casdoor_sendMessage_post_input_object_provider_enum!, $params: StringMap) {
+  data: casdoor_sendMessage_post(
+    sendMessage_post_input_object: {phones: $phones, countryCode: "CN", provider: $provider, params: $params}
+  ) {
+    code
+    msg
+    data
+  }
+}

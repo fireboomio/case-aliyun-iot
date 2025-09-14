@@ -1,0 +1,13 @@
+query MyQuery($id: String!) {
+  data: admin_findUniquedict(where: {id: $id}) {
+    id
+    createdAt
+    updatedAt
+    code
+    name
+    description
+    itemCount: _count @transform(get: "dictItem") {
+      dictItem
+    }
+  }
+}

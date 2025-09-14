@@ -1,0 +1,8 @@
+mutation MyQuery($id: String!, $code: String, $description: String, $name: String) {
+  data: admin_updateOnedict(
+    data: {code: {set: $code}, description: {set: $description}, name: {set: $name}}
+    where: {id: $id}
+  ) {
+    id
+  }
+}

@@ -1,0 +1,7 @@
+mutation MyQuery($id: String!, $phone: String!, $name: String = "", $nickName: String = "", $avatar: String = "") @internalOperation {
+  data: admin_createOneuser(
+    data: {id: $id, phone: $phone, name: $name, avatar: $avatar, nickName: $nickName}
+  ) {
+    id
+  }
+}

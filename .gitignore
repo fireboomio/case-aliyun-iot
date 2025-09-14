@@ -1,0 +1,21 @@
+# file/ide
+.idea/
+.vscode/
+.history
+
+# bin file
+fireboom
+fireboom.old
+
+log/
+template/
+exported/
+generated-sdk/
+license.key
+authentication.key
+.env*
+!.env.example
+!store/**/log
+
+custom-go/generated
+custom-go/server/fireboom_server.go

@@ -1,0 +1,9 @@
+package {{package}}
+
+import "custom-go/iot/base"
+
+var (
+{{#each tsl.services}}
+    {{upperFirst identifier}}Service = base.NewRRpcRequest[{{upperFirst identifier}}ServiceInput, {{upperFirst identifier}}ServiceOutput]("{{identifier}}", "{{name}}", "{{callType}}", "{{method}}", "{{desc}}", {{required}})
+{{/each}}
+)

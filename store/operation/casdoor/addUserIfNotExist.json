@@ -1,0 +1,24 @@
+{
+  "enabled": true,
+  "title": "",
+  "remark": "新增用户仅当不存在时候新增\n1. 先判断oidc中是否存在\n2. 再判断db中是否存在\n3. oidc不存在则创建并导出userId\n4. db中不存在则使用导出的userId创建用户",
+  "createTime": "2024-03-27T15:20:50.800483+08:00",
+  "updateTime": "2024-04-01T17:42:04.528832+08:00",
+  "deleteTime": "",
+  "path": "casdoor/addUserIfNotExist",
+  "engine": 0,
+  "hooksConfiguration": null,
+  "rateLimit": null,
+  "configCustomized": false,
+  "cacheConfig": {
+    "enabled": false,
+    "maxAge": 120,
+    "public": false,
+    "staleWhileRevalidate": 30
+  },
+  "liveQueryConfig": {
+    "enabled": false,
+    "pollingIntervalSeconds": 10
+  },
+  "authenticationConfig": null
+}

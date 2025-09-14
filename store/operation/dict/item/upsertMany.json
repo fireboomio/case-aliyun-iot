@@ -1,0 +1,37 @@
+{
+  "enabled": true,
+  "title": "",
+  "remark": "# 管理字典子项",
+  "createTime": "2024-07-17T10:15:02.484952+08:00",
+  "updateTime": "2024-09-18T14:46:45.385188+08:00",
+  "deleteTime": "",
+  "path": "dict/item/upsertMany",
+  "engine": 0,
+  "hooksConfiguration": {
+    "preResolve": false,
+    "postResolve": true,
+    "mutatingPreResolve": false,
+    "mutatingPostResolve": false,
+    "customResolve": false,
+    "mockResolve": null,
+    "httpTransportOnRequest": false,
+    "httpTransportOnResponse": false,
+    "onConnectionInit": false,
+    "httpTransportBeforeRequest": false,
+    "httpTransportAfterResponse": false
+  },
+  "rateLimit": null,
+  "semaphore": null,
+  "configCustomized": false,
+  "cacheConfig": {
+    "enabled": false,
+    "maxAge": 120,
+    "public": false,
+    "staleWhileRevalidate": 30
+  },
+  "liveQueryConfig": {
+    "enabled": false,
+    "pollingIntervalSeconds": 10
+  },
+  "authenticationConfig": null
+}

@@ -1,0 +1,15 @@
+mutation MyQuery($phone: String, $loginType: casdoor_login_post_input_object_loginType_enum! = sms, $code: String, $password: String, $username: String) {
+  data: casdoor_login_post(
+    login_post_input_object: {code: $code, loginType: $loginType, phone: $phone, password: $password, username: $username}
+  ) {
+    phoneBound @customizedField(type: Boolean, desc: "是否已绑定手机号")
+    code
+    msg
+    success
+    data {
+      accessToken
+      expireIn
+      refreshToken
+    }
+  }
+}

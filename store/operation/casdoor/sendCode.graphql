@@ -1,0 +1,9 @@
+mutation MyQuery($phone: String!, $provider: casdoor_sendCode_post_input_object_provider_enum = fireboom_login) {
+  data: casdoor_sendCode_post(
+    sendCode_post_input_object: {dest: $phone, countryCode: "CN", provider: $provider}
+  ) {
+    code
+    data
+    msg
+  }
+}

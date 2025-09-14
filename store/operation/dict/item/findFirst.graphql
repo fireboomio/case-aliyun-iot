@@ -1,0 +1,7 @@
+query MyQuery($dictCode: String!, $key: String!, $skipId: String) {
+  data: admin_findFirstdictItem(
+    where: {dict: {is: {code: {equals: $dictCode}}}, enabled: {equals: true}, key: {equals: $key}, id: {not: {equals: $skipId}}}
+  ) @transform(get: "value") {
+    value
+  }
+}

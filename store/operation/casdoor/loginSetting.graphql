@@ -1,0 +1,11 @@
+query MyQuery($loginType: casdoor_loginSetting_get_loginType_enum = qy_pc) {
+  data: casdoor_loginSetting_get(loginType: $loginType) {
+    code
+    msg
+    success
+    data {
+      agentid
+      appid
+    }
+  }
+}

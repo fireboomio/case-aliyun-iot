@@ -1,0 +1,5 @@
+mutation MyQuery($ids: [String]!) {
+  data: admin_deleteManydict(where: {id: {in: $ids}}) @transform(get: "count") {
+    count
+  }
+}

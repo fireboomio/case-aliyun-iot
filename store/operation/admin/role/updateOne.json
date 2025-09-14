@@ -1,0 +1,37 @@
+{
+  "enabled": true,
+  "title": "",
+  "remark": "# 角色更新接口，可以用来重新绑定菜单权限",
+  "createTime": "2023-12-21T19:03:50.986563+08:00",
+  "updateTime": "2024-06-25T14:48:49.526457+08:00",
+  "deleteTime": "",
+  "path": "admin/role/updateOne",
+  "engine": 0,
+  "hooksConfiguration": {
+    "preResolve": false,
+    "postResolve": false,
+    "mutatingPreResolve": true,
+    "mutatingPostResolve": false,
+    "customResolve": false,
+    "mockResolve": null,
+    "httpTransportOnRequest": false,
+    "httpTransportOnResponse": false,
+    "onConnectionInit": false,
+    "httpTransportBeforeRequest": false,
+    "httpTransportAfterResponse": false
+  },
+  "rateLimit": null,
+  "semaphore": null,
+  "configCustomized": false,
+  "cacheConfig": {
+    "enabled": false,
+    "maxAge": 120,
+    "public": false,
+    "staleWhileRevalidate": 30
+  },
+  "liveQueryConfig": {
+    "enabled": false,
+    "pollingIntervalSeconds": 10
+  },
+  "authenticationConfig": null
+}

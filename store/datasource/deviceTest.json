@@ -1,0 +1,17 @@
+{
+  "name": "deviceTest",
+  "enabled": false,
+  "createTime": "2024-07-05T16:53:42.943111+08:00",
+  "updateTime": "",
+  "deleteTime": "",
+  "cacheEnabled": false,
+  "kind": 2,
+  "customRest": null,
+  "customGraphql": {
+    "customized": true,
+    "headers": null,
+    "endpoint": "",
+    "schemaFilepath": ""
+  },
+  "customDatabase": null
+}

@@ -1,0 +1,16 @@
+mutation MyQuery($userId: String!, $phone: String, $name: String, $avatar: String, $birthday: DateTime, $nickName: String, $sex: admin_userSex,
+  $authorization: String! @fromHeader(name: "Authorization"), $updatePhoneSucceed: Boolean @internal) {
+  oidcUpdate: casdoor_updateUser_post(
+    Authorization: $authorization
+    updateUser_post_input_object: {phone: $phone, name: $phone, userId: $userId}
+  ) @skip(ifRule: "isEmpty(arguments.phone)") {
+    code @export(as: "updatePhoneSucceed")
+    msg
+  }
+  data: admin_updateOneuser(
+    data: {name: {set: $name}, avatar: {set: $avatar}, birthday: {set: $birthday}, nickName: {set: $nickName}, sex: $sex, phone: {set: $phone}}
+    where: {id: $userId}
+  ) @include(if: $updatePhoneSucceed, ifRule: "isEmpty(arguments.phone)") {
+    id
+  }
+}

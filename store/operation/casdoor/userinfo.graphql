@@ -1,0 +1,9 @@
+query MyQuery($accessToken: String!) @internalOperation {
+  data: casdoor_userInfo_get(Authorization: $accessToken) {
+    name
+    phone
+    socialUserId
+    userId
+    avatar
+  }
+}

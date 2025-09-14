@@ -1,0 +1,5 @@
+mutation MyQuery($lt: DateTime! @injectCurrentDateTime(format: ISO8601, offset: {previous: true, unit: MONTH, value: 1})) @internalOperation {
+  admin_deleteManyadminLog(where: {createdAt: {lt: $lt}}) {
+    count
+  }
+}

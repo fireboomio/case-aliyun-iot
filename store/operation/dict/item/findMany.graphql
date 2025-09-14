@@ -1,0 +1,13 @@
+query MyQuery($dictCode: String!, $enabled: Boolean) {
+  data: admin_findManydictItem(
+    where: {dict: {is: {code: {equals: $dictCode}}}, enabled: {equals: $enabled}}
+  ) {
+    id
+    dictId
+    key
+    value
+    enabled
+    updatedAt
+    description
+  }
+}

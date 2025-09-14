@@ -1,0 +1,24 @@
+{
+  "enabled": true,
+  "title": "",
+  "remark": "OIDC用户信息查询",
+  "createTime": "2024-02-29T16:41:11.756909+08:00",
+  "updateTime": "2024-03-04T17:58:04.350323+08:00",
+  "deleteTime": "",
+  "path": "casdoor/userinfo",
+  "engine": 0,
+  "hooksConfiguration": null,
+  "rateLimit": null,
+  "configCustomized": false,
+  "cacheConfig": {
+    "enabled": false,
+    "maxAge": 120,
+    "public": false,
+    "staleWhileRevalidate": 30
+  },
+  "liveQueryConfig": {
+    "enabled": false,
+    "pollingIntervalSeconds": 10
+  },
+  "authenticationConfig": null
+}

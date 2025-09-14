@@ -1,0 +1,173 @@
+package server
+
+import (
+	"custom-go/pkg/plugins"
+	"custom-go/pkg/types"
+	"custom-go/pkg/utils"
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
+	"github.com/labstack/gommon/log"
+	"github.com/spf13/cast"
+	"net"
+	"net/http"
+	"os"
+	"os/signal"
+	"strings"
+	"sync"
+	"syscall"
+	"time"
+
+	"context"
+)
+
+// Execute adds all child commands to the root command and sets flags appropriately.
+// This is called by main.main(). It only needs to happen once to the rootCmd.
+func Execute() {
+	if err := startServer(); err != nil {
+		os.Exit(1)
+	}
+}
+
+func configureWunderGraphServer() *echo.Echo {
+	// 初始化 Echo 实例
+	e := echo.New()
+	e.Logger.SetLevel(log.DEBUG)
+
+	// 配置日志中间件
+	loggerConfig := middleware.DefaultLoggerConfig
+	loggerConfig.Skipper = func(c echo.Context) bool {
+		return c.Request().URL.Path == "/health"
+	}
+	e.Use(middleware.LoggerWithConfig(loggerConfig))
+
+	// 配置 CORS 中间件
+	corsCfg := middleware.CORSConfig{
+		AllowOrigins: []string{"*"},
+		AllowMethods: []string{http.MethodGet, http.MethodPost, http.MethodPut, http.MethodDelete},
+		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
+	}
+	e.Use(middleware.CORSWithConfig(corsCfg))
+
+	plugins.RegisterGlobalHooks(e, plugins.WdgHooksAndServerConfig.Hooks.Global)
+	plugins.RegisterAuthHooks(e, plugins.WdgHooksAndServerConfig.Hooks.Authentication)
+
+	e.Use(middleware.Recover(), func(next echo.HandlerFunc) echo.HandlerFunc {
+		return func(c echo.Context) error {
+			if c.Request().Method == http.MethodGet {
+				return next(c)
+			}
+
+			var body types.BaseRequestBody
+			err := utils.CopyAndBindRequestBody(c.Request(), &body)
+			if err != nil {
+				return err
+			}
+
+			if body.Wg == nil {
+				body.Wg = &types.BaseRequestBodyWg{}
+			}
+			if body.Wg.ClientRequest == nil {
+				body.Wg.ClientRequest = &types.WunderGraphRequest{
+					Method:     c.Request().Method,
+					RequestURI: c.Request().RequestURI,
+					Headers:    plugins.HeadersToObject(c.Request().Header),
+				}
+			}
+			headerRequestIdKey := string(types.InternalHeader_X_Request_Id)
+			headerTraceIdKey := string(types.InternalHeader_X_uber_trace_id)
+			internalClient := types.InternalClientFactoryCall(types.RequestHeaders{
+				headerRequestIdKey: c.Request().Header.Get(headerRequestIdKey),
+				headerTraceIdKey:   c.Request().Header.Get(headerTraceIdKey),
+			}, body.Wg)
+			brc := &types.BaseRequestContext{
+				Context:        c,
+				InternalClient: internalClient,
+			}
+			return next(brc)
+		}
+	})
+
+	for _, routerFunc := range types.GetEchoRouterFuncArr() {
+		routerFunc(e)
+	}
+
+	var (
+		healthReport *types.HealthReportLock
+		healthCount  int
+	)
+	e.Server.BaseContext = func(_ net.Listener) context.Context {
+		healthReport = &types.HealthReportLock{}
+		healthReport.Time = time.Now()
+		for _, healthFunc := range types.GetHealthFuncArr() {
+			go healthFunc(e, healthReport)
+		}
+		return context.Background()
+	}
+	registerOnce := &sync.Once{}
+	workdir, _ := os.Getwd()
+	// 健康检查
+	e.GET(string(types.Endpoint_health), func(c echo.Context) error {
+		registerAllowed := strings.HasPrefix(c.Request().UserAgent(), "Go-http-client/")
+		if hookReportValue := c.QueryParam("enable-hook-report"); hookReportValue != "" {
+			healthReport.Lock()
+			defer healthReport.Unlock()
+			registerAllowed = !cast.ToBool(hookReportValue) || healthCount == 1
+			if !registerAllowed {
+				e.Logger.Debug("Please wait next health check from Fire-boom")
+				healthCount++
+			}
+		}
+		if registerAllowed {
+			registerOnce.Do(func() {
+				for _, registeredHook := range types.GetRegisteredHookArr() {
+					go registeredHook(e.Logger)
+				}
+				if registeredHooks := types.GetRegisteredHookWithClientArr(); len(registeredHooks) > 0 {
+					client := types.NewEmptyInternalClient()
+					for _, registeredHook := range registeredHooks {
+						go registeredHook(e.Logger, client)
+					}
+				}
+			})
+		}
+		return c.JSON(http.StatusOK, types.Health{
+			Status:  "ok",
+			Report:  &healthReport.HealthReport,
+			Workdir: workdir,
+		})
+	})
+
+	return e
+}
+
+func startServer() error {
+	graphqlApi := types.WdgGraphConfig.Api
+	types.PublicNodeUrl = types.GetConfigurationVal(graphqlApi.NodeOptions.PublicNodeUrl)
+	types.PrivateNodeUrl = types.GetConfigurationVal(graphqlApi.NodeOptions.NodeUrl)
+	serverListen := graphqlApi.ServerOptions.Listen
+	types.ServerListenAddress = types.GetConfigurationVal(serverListen.Host) + ":" + types.GetConfigurationVal(serverListen.Port)
+
+	// 配置服务器
+	wdgServer := configureWunderGraphServer()
+
+	// 启动服务器
+	go func() {
+		if err := wdgServer.Start(types.ServerListenAddress); err != nil {
+			panic(err)
+		}
+	}()
+
+	// 等待终止信号
+	stop := make(chan os.Signal)
+	signal.Notify(stop, syscall.SIGINT, syscall.SIGTERM)
+	<-stop
+
+	// 优雅地关闭服务器
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	if err := wdgServer.Shutdown(ctx); err != nil {
+		panic(err)
+	}
+
+	return nil
+}

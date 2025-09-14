@@ -1,0 +1,5 @@
+query MyQuery($id: String!) @internalOperation {
+  data: admin_findUniqueuser(where: {id:  $id}) {
+    id
+  }
+}

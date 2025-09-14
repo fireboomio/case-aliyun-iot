@@ -1,0 +1,26 @@
+{
+  "name": "casdoor",
+  "enabled": true,
+  "createTime": "2023-09-14T17:03:03.516456935+08:00",
+  "updateTime": "2023-09-14T17:04:52.827399338+08:00",
+  "deleteTime": "",
+  "issuer": {
+    "kind": 1,
+    "environmentVariableName": "OIDC_API_URL"
+  },
+  "oidcConfigEnabled": false,
+  "oidcConfig": {
+    "clientId": {
+      "kind": 0
+    },
+    "clientSecret": {
+      "kind": 0
+    },
+    "queryParameters": null
+  },
+  "jwksProviderEnabled": true,
+  "jwksProvider": {
+    "jwksJson": null,
+    "userInfoCacheTtlSeconds": 0
+  }
+}

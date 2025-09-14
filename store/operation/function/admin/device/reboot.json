@@ -1,0 +1,18 @@
+{
+  "enabled": false,
+  "title": "",
+  "remark": "",
+  "createTime": "2025-09-14T08:18:23.193027+08:00",
+  "updateTime": "",
+  "deleteTime": "",
+  "path": "function/admin/device/reboot",
+  "engine": 1,
+  "hooksConfiguration": null,
+  "rateLimit": null,
+  "semaphore": null,
+  "configCustomized": false,
+  "cacheConfig": null,
+  "liveQueryConfig": null,
+  "authenticationConfig": null,
+  "graphqlTransformEnabled": false
+}

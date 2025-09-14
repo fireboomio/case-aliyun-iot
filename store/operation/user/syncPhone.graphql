@@ -1,0 +1,8 @@
+mutation MyQuery($id: String!, $phone: String!) @internalOperation {
+  data: admin_updateOneuser(
+    data: {phone: {set: $phone}}
+    where: {id: $id, NOT: {phone: {equals: $phone}}}
+  ) @transform(get: "id") {
+    id
+  }
+}

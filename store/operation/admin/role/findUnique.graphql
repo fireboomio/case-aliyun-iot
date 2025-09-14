@@ -1,0 +1,35 @@
+query MyQuery($id: String!) {
+  data: admin_findUniqueadminRole(where: {id: $id}) {
+    code
+    createdAt
+    id
+    updatedAt
+    description
+    name
+    menus: adminRole2Menu(where: {adminMenu: {is: {OR: [{path: {not: {equals: ""}}}, {type: {equals: "F"}}]}}}) @transform(get: "adminMenu") {
+      adminMenu {
+        code
+        createdAt
+        icon
+        id
+        label
+        level
+        parentId
+        path
+        permission
+        schema
+        sort
+        type
+        updatedAt
+        apis
+      }
+    }
+    users: adminRole2User @transform(get: "user") {
+      user {
+        id
+        name
+        avatar
+      }
+    }
+  }
+}

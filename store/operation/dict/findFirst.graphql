@@ -1,0 +1,5 @@
+query MyQuery($code: String!, $skipId: String) {
+  data: admin_findFirstdict(where: {code: {equals: $code}, id: {not: {equals: $skipId}}}) {
+    id
+  }
+}

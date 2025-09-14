@@ -1,0 +1,31 @@
+query MyQuery(
+  $skip: Int = 0, $take: Int = 10, $orderBy: [admin_userOrderByWithRelationInput] = [{createdAt: asc}]
+  $name: String, $sex: admin_userSex, $phone: String
+) {
+  data: admin_findManyuser(
+    skip: $skip, take: $take, orderBy: $orderBy
+    where: {name: {contains: $name}, sex: {equals: $sex}, phone: {contains: $phone}}
+  ) {
+    avatar
+    birthday
+    createdAt
+    id
+    name
+    nickName
+    phone
+    sex
+    updatedAt
+    roles: adminRole2User @transform(get: "role.name") {
+      role {
+        name
+      }
+    }
+  }
+  total: admin_aggregateuser(
+    where: {name: {contains: $name}, sex: {equals: $sex}, phone: {contains: $phone}}
+  ) @transform(get: "_count.id") {
+    _count {
+      id
+    }
+  }
+}

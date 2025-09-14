@@ -1,0 +1,26 @@
+{
+  "enabled": true,
+  "title": "",
+  "remark": "# 用户同步身份系统中登录的phone到业务系统，保持两者一致",
+  "createTime": "2025-02-27T11:15:04.472709+08:00",
+  "updateTime": "2025-02-27T11:17:02.522972+08:00",
+  "deleteTime": "",
+  "path": "user/syncPhone",
+  "engine": 0,
+  "hooksConfiguration": null,
+  "rateLimit": null,
+  "semaphore": null,
+  "configCustomized": false,
+  "cacheConfig": {
+    "enabled": false,
+    "maxAge": 120,
+    "public": false,
+    "staleWhileRevalidate": 30
+  },
+  "liveQueryConfig": {
+    "enabled": false,
+    "pollingIntervalSeconds": 10
+  },
+  "authenticationConfig": null,
+  "graphqlTransformEnabled": false
+}

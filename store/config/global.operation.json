@@ -1,0 +1,31 @@
+{
+  "cacheConfig": {
+    "enabled": false,
+    "maxAge": 120,
+    "public": false,
+    "staleWhileRevalidate": 30
+  },
+  "liveQueryConfig": {
+    "enabled": false,
+    "pollingIntervalSeconds": 10
+  },
+  "graphqlTransformEnabled": true,
+  "authenticationConfigs": {
+    "2": {
+      "authRequired": false
+    },
+    "0": {
+      "authRequired": false
+    },
+    "1": {
+      "authRequired": true
+    }
+  },
+  "apiAuthenticationHooks": {
+    "mutatingPostAuthentication": true
+  },
+  "globalHttpTransportHooks": {
+    "beforeOriginRequest": true,
+    "afterOriginResponse": true
+  }
+}
