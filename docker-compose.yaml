@@ -1,0 +1,86 @@
+version: "3.9"
+services:
+  oidc:
+    image: fireboomapi/yudai:master
+    container_name: fb_oidc
+    ports:
+      - "9825:9825"
+    healthcheck:
+      test: [ "CMD", "wget", "-q", "-O", "/dev/null", "http://localhost:9825" ]
+      retries: 5
+      interval: 5s
+      timeout: 5s
+    volumes: # 数据持久化的配置
+      - /root/yudai/cert:/yudai/cert
+      - /root/yudai/conf:/yudai/conf
+    networks: # 网络配置
+      - backend
+
+  fb-data:
+    image: registry.region.aliyuncs.com/fireboom/fb-data:2024-12-03
+    pull_policy: always
+    container_name: fb_data
+    volumes: # 数据持久化的配置
+      - /root/fb-data:/app
+
+  fb-hook:
+    depends_on:
+      fb-data:
+        condition: service_completed_successfully
+      fireboom:
+        condition: service_started
+    image: golang:1.20
+    container_name: fb_hook
+    environment:
+      GOPROXY: https://goproxy.cn,direct
+    ports:
+      - "9992:9992"
+    working_dir: /app/custom-go
+    volumes: # 数据持久化的配置
+      - /root/go-hook/build:/root/.cache/go-build
+      - /root/fb-data/custom-go:/app/custom-go
+      - /root/fb-data/.env.prod:/app/.env
+    command: go run main.go
+    networks: # 网络配置
+      - backend
+
+  fireboom:
+    depends_on:
+      fb-data:
+        condition: service_completed_successfully
+      oidc:
+        condition: service_healthy
+    image: fireboomapi/fireboom:v2.2.3
+    environment:
+      FB_SERVER_URL: http://fb-hook:9992
+    container_name: fb_fireboom
+    ports:
+      - "9123:9123"
+      - "9991:9991"
+    working_dir: /app
+    volumes: # 数据持久化的配置
+      - /root/fireboom/prisma:/root/.cache/fireboom/prisma
+      - /root/fb-data:/app
+    networks: # 网络配置
+      - backend
+
+  jaegertracing:
+    image: jaegertracing/all-in-one:latest
+    container_name: fb_tracing
+    ports:
+      - "6831:6831"
+      - "16686:16686"
+    networks: # 网络配置
+      - backend
+
+  admin-web:
+    image: registry.region.aliyuncs.com/fireboom/admin-web:2024-12-02_17_51_54
+    container_name: fb_web
+    environment:
+      API_URL: localhost:9991
+    ports:
+      - "8080:80"
+
+networks:
+  backend:
+    driver: bridge
